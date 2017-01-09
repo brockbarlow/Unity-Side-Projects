@@ -8,18 +8,18 @@ namespace Assets.Scripts
 {
     public class Movement : MonoBehaviour
     {
-        public float MovementSpeed = 5.0f; //how fast the player will move
-        public float TurnSpeed = 45.0f; //how fast the player will turn
-        public float CameraDistance = 0.0f; //how far the camera is from the player
-        public float CameraHeight = 0.0f; //how high the camera is from the player
+        private float _movementSpeed = 5.0f; //how fast the player will move
+        private float _turnSpeed = 105.0f; //how fast the player will turn
+        private float _cameraDistance = 0.0f; //how far the camera is from the player
+        private float _cameraHeight = 0.0f; //how high the camera is from the player
         public Rigidbody Rb;
         public Transform MainCamera;
-        public Vector3 CameraOffSet;
+        private Vector3 _cameraOffSet;
 
         public void Start()
         {
             Rb = GetComponent<Rigidbody>();
-            CameraOffSet = new Vector3(0.0f, CameraHeight, -CameraDistance);
+            _cameraOffSet = new Vector3(0.0f, _cameraHeight, -_cameraDistance);
             MainCamera = Camera.main.transform;
             MoveCamera();
         }
@@ -28,9 +28,9 @@ namespace Assets.Scripts
         {
             var turnAmount = Input.GetAxisRaw("Horizontal");
             var moveAmount = Input.GetAxisRaw("Vertical");
-            var deltaTranslation = Rb.position + transform.forward*MovementSpeed*moveAmount*Time.deltaTime;
+            var deltaTranslation = Rb.position + transform.forward * _movementSpeed * moveAmount * Time.deltaTime;
             Rb.MovePosition(deltaTranslation);
-            var deltaRotation = Quaternion.Euler(TurnSpeed * new Vector3(0, turnAmount, 0) * Time.deltaTime);
+            var deltaRotation = Quaternion.Euler(_turnSpeed * new Vector3(0, turnAmount, 0) * Time.deltaTime);
             Rb.MoveRotation(Rb.rotation * deltaRotation);
             MoveCamera();
         }
@@ -39,7 +39,7 @@ namespace Assets.Scripts
         {
             MainCamera.position = transform.position;
             MainCamera.rotation = transform.rotation;
-            MainCamera.Translate(CameraOffSet);
+            MainCamera.Translate(_cameraOffSet);
             MainCamera.LookAt(transform);
         }
     }
