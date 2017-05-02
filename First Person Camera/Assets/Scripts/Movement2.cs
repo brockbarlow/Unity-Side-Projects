@@ -8,13 +8,15 @@ namespace Assets.Scripts
 {
     public class Movement2 : MonoBehaviour
     {
+        private Transform MainCamera;
+        private Vector3 _cameraOffSet;
+
         private float _movementSpeed = 10.0f; //how fast the player will move
         private float _turnSpeed = 105.0f; //how fast the player will turn
         private float _cameraDistance = 0.0f; //how far the camera is from the player
         private float _cameraHeight = 0.0f; //how high the camera is from the player
-        public Rigidbody Rb;
-        public Transform MainCamera;
-        private Vector3 _cameraOffSet;
+
+        public Rigidbody Rb;        
 
         public void Start()
         {
@@ -26,14 +28,23 @@ namespace Assets.Scripts
 
         public void FixedUpdate()
         {
-            var turnAmountX = Input.GetAxis("Mouse X");
-            //var turnAmountY = Input.GetAxis("Mouse Y");
-            var moveAmount = Input.GetAxisRaw("Vertical");
-            //var moveAmount = Input.GetAxisRaw("Horizontal");
-            var deltaTranslation = Rb.position + transform.forward * _movementSpeed * moveAmount * Time.deltaTime;
-            Rb.MovePosition(deltaTranslation);
-            var deltaRotation = Quaternion.Euler(_turnSpeed * new Vector3(0, turnAmountX, 0) * Time.deltaTime);
-            Rb.MoveRotation(Rb.rotation * deltaRotation);
+            var turnAmountRight = Input.GetAxis("Mouse X");
+            var turnAmountUp = Input.GetAxis("Mouse Y");
+            var moveAmountVert = Input.GetAxisRaw("Vertical");
+            var moveAmountHori = Input.GetAxisRaw("Horizontal");
+
+            var deltaTranslationForward = Rb.position + transform.forward * _movementSpeed * moveAmountVert * Time.deltaTime;
+            Rb.MovePosition(deltaTranslationForward);
+
+            var deltaTranslationRight = Rb.position + transform.right * _movementSpeed * moveAmountHori * Time.deltaTime;
+            Rb.MovePosition(deltaTranslationRight);
+
+            var deltaRotationRight = Quaternion.Euler(_turnSpeed * new Vector3(0, turnAmountRight, 0) * Time.deltaTime);
+            Rb.MoveRotation(Rb.rotation * deltaRotationRight);
+
+            var deltaRotationUp = Quaternion.Euler(_turnSpeed * new Vector3(-turnAmountUp, 0, 0) * Time.deltaTime);
+            Rb.MoveRotation(Rb.rotation * deltaRotationUp);
+
             MoveCamera();
         }
 
