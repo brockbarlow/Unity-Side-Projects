@@ -24,6 +24,8 @@ namespace Player_Three
         public float sensitivityX = 15f;
         public float sensitivityY = 15f;
 
+        public float minX = -18000;
+        public float maxX = 18000;
 
         public float minY = -60f;
         public float maxY = 60f;
