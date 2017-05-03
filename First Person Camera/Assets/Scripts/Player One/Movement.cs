@@ -2,10 +2,10 @@
 //date created: 1/9/2017
 //purpose of script: move the player and while the player moves, move the camera. set the camera to emulate a first person view
 
-using UnityEngine;
-
-namespace Assets.Scripts
+namespace Player_One
 {
+    using UnityEngine;
+
     public class Movement : MonoBehaviour
     {
         private Transform MainCamera;

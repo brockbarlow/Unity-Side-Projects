@@ -2,10 +2,10 @@
 //script created on: 1/9/2017
 //purpose: move the player with wasd and move the camera with the mouse
 
-using UnityEngine;
-
-namespace Assets.Scripts
+namespace Player_Two
 {
+    using UnityEngine;
+
     public class Movement2 : MonoBehaviour
     {
         private Transform MainCamera;
